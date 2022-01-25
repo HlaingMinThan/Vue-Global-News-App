@@ -12,6 +12,7 @@ module.exports = {
     "no-debugger": process.env.NODE_ENV === "production" ? "warn" : "off",
     quotes: ["error", "double"],
     "eol-last": 0,
+    "comma-dangle": ["error", "only-multiline"],
   },
   overrides: [
     {
