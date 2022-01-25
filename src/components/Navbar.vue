@@ -1,7 +1,8 @@
 <template>
   <v-app-bar color="deep-purple accent-4" dense dark max-height="60">
-    <v-toolbar-title>News App</v-toolbar-title>
-
+    <router-link to="/" class="home-page-link">
+      <v-toolbar-title>News App</v-toolbar-title>
+    </router-link>
     <v-spacer></v-spacer>
 
     <v-menu left bottom>
@@ -19,3 +20,18 @@
     </v-menu>
   </v-app-bar>
 </template>
+
+<script>
+import { mapGetters } from "vuex";
+
+export default {
+  computed: { ...mapGetters({ visitedRoutes: "getVisitedRoutes" }) },
+};
+</script>
+
+<style scoped>
+.home-page-link {
+  text-decoration: none;
+  color: white;
+}
+</style>
