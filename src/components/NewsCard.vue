@@ -11,7 +11,7 @@
         Small plates, salads & sandwiches - an intimate setting with 12 indoor
         seats plus patio seating.sandwiches - an intimate setting with 12 indoor
         seats plus patio seating.
-        <router-link :to="`/detail/1`">read more</router-link>
+        <router-link :to="`/detail/${Math.random()}`">read more</router-link>
       </div>
     </v-card-text>
   </v-card>
