@@ -6,7 +6,7 @@
     </div>
     <bread-crumbs />
     <v-row>
-      <v-col v-for="n in 4" :key="n" md="3">
+      <v-col v-for="n in 4" :key="n" md="6" lg="3" xl="2">
         <NewsCard />
       </v-col>
     </v-row>

@@ -25,6 +25,7 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes,
 });
+
 // store route object for breadcrumbs link
 router.afterEach((to, from) => {
   const text = "headline title"; // get dynamic headline title on route change
