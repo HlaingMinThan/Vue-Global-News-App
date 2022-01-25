@@ -6,8 +6,14 @@
     </div>
     <bread-crumbs />
     <v-row>
-      <v-col v-for="n in 4" :key="n" md="6" lg="3" xl="2">
-        <NewsCard />
+      <v-col
+        v-for="newHeadline in newHeadlines"
+        :key="newHeadline.source.id"
+        md="6"
+        lg="3"
+        xl="2"
+      >
+        <NewsCard :newHeadline="newHeadline" />
       </v-col>
     </v-row>
   </v-container>
@@ -19,6 +25,24 @@ import NewsCard from "../components/NewsCard.vue";
 
 export default {
   components: { NewsCard, BreadCrumbs },
+  data() {
+    return {
+      newHeadlines: [],
+    };
+  },
+  methods: {
+    async getHeadlines() {
+      const res = await this.axios.get(
+        "/top-headlines?country=us&apiKey=099148be22804e849a0c6fe022b7cf5e"
+      );
+
+      this.newHeadlines = res.data.articles;
+      console.log(this.newHeadlines);
+    },
+  },
+  mounted() {
+    this.getHeadlines();
+  },
 };
 </script>
 

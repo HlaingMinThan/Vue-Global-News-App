@@ -1,26 +1,21 @@
 <template>
-  <v-card :loading="loading" class="mx-auto my-12" max-width="374">
-    <v-img
-      height="250"
-      src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
-    ></v-img>
+  <v-card class="mx-auto my-12" max-width="374" min-height="650">
+    <v-img height="250" :src="newHeadline.urlToImage"></v-img>
     <v-card-title class="d-flex justify-space-between"
-      ><div>Cafe Badilico</div>
+      ><div>{{ newHeadline.title }}</div>
       <Dialog />
     </v-card-title>
     <v-card-text>
       <div>
         <div class="text-subtitle-1 grey--text mb-2">20.6.2001</div>
-        Small plates, salads & sandwiches - an intimate setting with 12 indoor
-        seats plus patio seating.sandwiches - an intimate setting with 12 indoor
-        seats plus patio seating.
+        {{ newHeadline.content }}
       </div>
     </v-card-text>
-    <div class="pa-4">
+    <v-card-actions class="pa-4">
       <router-link :to="`/detail/${Math.random()}`">
         <v-btn color="primary" dark>Read More</v-btn>
       </router-link>
-    </div>
+    </v-card-actions>
   </v-card>
 </template>
 
@@ -28,12 +23,10 @@
 import Dialog from "./Dialog.vue";
 
 export default {
-  components: { Dialog },
-  data() {
-    return {
-      loading: false,
-    };
+  props: {
+    newHeadline: Object,
   },
+  components: { Dialog },
 };
 </script>
 
