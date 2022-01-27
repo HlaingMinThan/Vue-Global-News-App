@@ -1,8 +1,8 @@
 <template>
   <v-dialog v-model="dialog" persistent max-width="600px">
     <template v-slot:activator="{ on, attrs }">
-      <v-btn color="grey" dark v-bind="attrs" v-on="on" small>
-        edit title
+      <v-btn color="grey" dark v-bind="attrs" v-on="on" small icon>
+        <v-icon>mdi-pencil</v-icon>
       </v-btn>
     </template>
     <v-card>
