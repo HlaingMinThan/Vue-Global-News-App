@@ -7,8 +7,8 @@
     <bread-crumbs />
     <v-row>
       <v-col
-        v-for="newHeadline in newHeadlines"
-        :key="newHeadline.source.id"
+        v-for="(newHeadline, index) in newHeadlines"
+        :key="index"
         md="6"
         lg="3"
         xl="2"
