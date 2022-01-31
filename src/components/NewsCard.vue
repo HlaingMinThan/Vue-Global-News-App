@@ -14,6 +14,9 @@
       ><div>{{ newHeadline.title }}</div>
       <div class="text-subtitle-1 grey--text mb-2">posts from 20.6.2001</div>
     </v-card-title>
+    <v-card-subtitle class="d-flex justify-space-between"
+      ><div>source - {{ newHeadline.source.name }}</div>
+    </v-card-subtitle>
     <v-card-text>
       <div>
         {{ newHeadline.content }}
