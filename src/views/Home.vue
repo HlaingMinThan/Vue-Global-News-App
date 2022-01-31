@@ -40,7 +40,7 @@
       </v-col>
     </v-row>
     <v-row v-else class="d-flex justify-center">
-      <h4 class="grey--text">No results found. :(</h4>
+      <h4 class="grey--text">{{ errorMsg }}</h4>
     </v-row>
   </v-container>
 </template>
@@ -66,15 +66,19 @@ export default {
       search: "",
       filterBy: "",
       isLoading: false,
+      errorMsg: "No results found. :(",
+      apiKey: "099148be22804e849a0c6fe022b7cf5e",
     };
   },
   watch: {
     search() {
+      this.filterBy = "";
       clearTimeout(this.timer);
       this.timer = setTimeout(() => {
         if (this.search.length) {
           this.searchHeadlines();
-        } else {
+        }
+        if (!this.search.length && !this.filterBy) {
           this.getTopUsHeadlines();
         }
       }, 500);
@@ -82,37 +86,59 @@ export default {
   },
   methods: {
     async getTopUsHeadlines() {
-      this.isLoading = true;
-      const res = await this.axios.get(
-        "/top-headlines?country=us&apiKey=099148be22804e849a0c6fe022b7cf5e"
-      );
+      try {
+        this.isLoading = true;
+        const res = await this.axios.get(
+          `/top-headlines?country=us&apiKey=${this.apiKey}`
+        );
 
-      this.newHeadlines = res.data.articles;
-      this.isLoading = false;
+        this.newHeadlines = res.data.articles;
+        this.isLoading = false;
+      } catch (err) {
+        this.newHeadlines = [];
+        this.errorMsg = err.message;
+        this.isLoading = false;
+      }
     },
     async searchHeadlines() {
-      this.isLoading = true;
-      const res = await this.axios.get(
-        `/top-headlines?q=${this.search}&apiKey=099148be22804e849a0c6fe022b7cf5e`
-      );
+      try {
+        this.isLoading = true;
+        const res = await this.axios.get(
+          `/top-headlines?q=${this.search}&apiKey=${this.apiKey}`
+        );
 
-      this.newHeadlines = res.data.articles;
-      this.isLoading = false;
+        this.newHeadlines = res.data.articles;
+        this.isLoading = false;
+      } catch (err) {
+        this.newHeadlines = [];
+        this.errorMsg = err.message;
+        this.isLoading = false;
+      }
     },
     async getSources() {
-      const res = await this.axios.get(
-        "/sources?apiKey=099148be22804e849a0c6fe022b7cf5e"
-      );
+      try {
+        const res = await this.axios.get(`/sources?apiKey=${this.apiKey}`);
 
-      this.sources = res.data.sources;
+        this.sources = res.data.sources;
+      } catch (err) {
+        this.newHeadlines = [];
+        this.errorMsg = err.message;
+        this.isLoading = false;
+      }
     },
     async filterBySource() {
-      this.isLoading = true;
-      const res = await this.axios.get(
-        `/top-headlines?sources=${this.filterBy}&apiKey=099148be22804e849a0c6fe022b7cf5e`
-      );
-      this.newHeadlines = res.data.articles;
-      this.isLoading = false;
+      try {
+        this.isLoading = true;
+        const res = await this.axios.get(
+          `/top-headlines?sources=${this.filterBy}&apiKey=${this.apiKey}`
+        );
+        this.newHeadlines = res.data.articles;
+        this.isLoading = false;
+      } catch (err) {
+        this.newHeadlines = [];
+        this.errorMsg = err.message;
+        this.isLoading = false;
+      }
     },
   },
   mounted() {
