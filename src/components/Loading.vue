@@ -1,5 +1,5 @@
 <template>
-  <v-overlay :z-index="zIndex" :value="overlay" v-show="show">
+  <v-overlay :value="show">
     <v-progress-circular indeterminate color="primary"></v-progress-circular>
   </v-overlay>
 </template>
