@@ -5,7 +5,7 @@
     </router-link>
     <v-spacer></v-spacer>
 
-    <v-menu left bottom>
+    <!-- <v-menu left bottom>
       <template v-slot:activator="{ on, attrs }">
         <v-btn icon v-bind="attrs" v-on="on">
           <v-icon>mdi-dots-vertical</v-icon>
@@ -17,7 +17,7 @@
           <v-list-item-title>Option {{ n }}</v-list-item-title>
         </v-list-item>
       </v-list>
-    </v-menu>
+    </v-menu> -->
   </v-app-bar>
 </template>
 
