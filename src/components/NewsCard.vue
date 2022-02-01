@@ -3,11 +3,14 @@
     <v-toolbar>
       <Dialog />
       <v-spacer></v-spacer>
-      <router-link :to="`/detail/${Math.random()}`" class="detail-link">
-        <v-btn color="grey" icon small>
-          <v-icon>mdi-arrow-right</v-icon>
-        </v-btn>
-      </router-link>
+      <v-btn
+        color="grey"
+        icon
+        small
+        @click="goDetail(Math.random(), newHeadline.title)"
+      >
+        <v-icon>mdi-arrow-right</v-icon>
+      </v-btn>
     </v-toolbar>
     <v-img height="250" :src="newHeadline.urlToImage"></v-img>
     <v-card-title class="d-flex justify-space-between"
@@ -33,6 +36,11 @@ export default {
     newHeadline: Object,
   },
   components: { Dialog },
+  methods: {
+    goDetail(id, title) {
+      this.$router.push({ name: "Detail", params: { id, title } });
+    },
+  },
 };
 </script>
 
