@@ -1,7 +1,7 @@
 <template>
   <v-card class="mx-auto my-12" max-width="374" min-height="670">
     <v-toolbar>
-      <Dialog />
+      <Dialog :id="newHeadline.id" :title="newHeadline.title" />
       <v-spacer></v-spacer>
       <v-btn
         color="grey"

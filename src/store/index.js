@@ -32,6 +32,10 @@ export default new Vuex.Store({
     SET_ERROR_MSG(state, msg) {
       state.errorMsg = msg;
     },
+    UPDATE_HEADLINE(state, { oldTitle, newTitle }) {
+      const headline = state.newHeadlines.find((h) => h.title === oldTitle);
+      headline.title = newTitle;
+    },
   },
   getters: {
     getVisitedRoutes(state) {
@@ -96,5 +100,4 @@ export default new Vuex.Store({
       }
     },
   },
-  modules: {},
 });
