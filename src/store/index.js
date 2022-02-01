@@ -2,8 +2,8 @@ import Vue from "vue";
 import Vuex from "vuex";
 import axios from "../../helpers/axios";
 
-const apiKey = "099148be22804e849a0c6fe022b7cf5e";
 Vue.use(Vuex);
+const API_KEY = "099148be22804e849a0c6fe022b7cf5e";
 
 export default new Vuex.Store({
   state: {
@@ -58,7 +58,7 @@ export default new Vuex.Store({
     async getHeadlines({ commit }) {
       try {
         commit("SET_LOADING", true);
-        const res = await axios.get(`/top-headlines?country=us&apiKey=${apiKey}`);
+        const res = await axios.get(`/top-headlines?country=us&apiKey=${API_KEY}`);
         commit("SET_HEADLINES", res.data.articles);
         commit("SET_LOADING", false);
       } catch (err) {
@@ -69,7 +69,7 @@ export default new Vuex.Store({
     async getSources({ commit }) {
       try {
         commit("SET_LOADING", true);
-        const res = await axios.get(`/sources?apiKey=${apiKey}`);
+        const res = await axios.get(`/sources?apiKey=${API_KEY}`);
         commit("SET_SOURCES", res.data.sources);
         commit("SET_LOADING", false);
       } catch (err) {
@@ -80,7 +80,7 @@ export default new Vuex.Store({
     async searchHeadlines({ commit }, search) {
       try {
         commit("SET_LOADING", true);
-        const res = await axios.get(`/top-headlines?q=${search}&apiKey=${apiKey}`);
+        const res = await axios.get(`/top-headlines?q=${search}&apiKey=${API_KEY}`);
         commit("SET_HEADLINES", res.data.articles);
         commit("SET_LOADING", false);
       } catch (err) {
@@ -91,7 +91,7 @@ export default new Vuex.Store({
     async filterBySource({ commit }, filterBy) {
       try {
         commit("SET_LOADING", true);
-        const res = await axios.get(`/top-headlines?sources=${filterBy}&apiKey=${apiKey}`);
+        const res = await axios.get(`/top-headlines?sources=${filterBy}&apiKey=${API_KEY}`);
         commit("SET_HEADLINES", res.data.articles);
         commit("SET_LOADING", false);
       } catch (err) {
