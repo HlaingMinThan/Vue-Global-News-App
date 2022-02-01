@@ -28,7 +28,7 @@ const router = new VueRouter({
 
 // store route object for breadcrumbs link
 router.afterEach((to, from) => {
-  const text = `${to.params.title.substring(0, 25)}...`; // get dynamic headline title on route change
+  const text = to.params.title ? `${to.params.title.substring(0, 25)}...` : ""; // get dynamic headline title on route change
   const payload = from.name ? { ...to, text } : { ...to, text: "home" };
   store.commit("ADD_VISITED_PAGE", payload);
 });
