@@ -4,30 +4,8 @@
     <div class="d-flex justify-space-between align-center flex-wrap">
       <h1 class="grey--text flex-3">Headlines</h1>
     </div>
-    <v-row align="center">
-      <v-col cols="3">
-        <v-select
-          :options="sources"
-          label="name"
-          placeholder="Filter By Source"
-          :reduce="(source) => source.id"
-          v-model="filterBy"
-          @input="filterBySource(filterBy)"
-        >
-          <template #option="{ name, category }">
-            <p style="margin: 0; padding: 0">{{ name }}</p>
-            <em>{{ category }}</em>
-            <hr class="mb-0 mt-0" />
-          </template>
-        </v-select>
-      </v-col>
-      <v-spacer></v-spacer>
-      <v-col cols="3">
-        <v-text-field label="search articles" v-model="search"></v-text-field>
-      </v-col>
-    </v-row>
-
-    <bread-crumbs />
+    <FilterHeadline />
+    <BreadCrumbs />
     <v-row v-if="newHeadlines.length">
       <v-col
         v-for="(newHeadline, index) in newHeadlines"
@@ -47,10 +25,10 @@
 
 <script>
 import { mapActions, mapGetters } from "vuex";
-import vSelect from "vue-select";
 import "vue-select/dist/vue-select.css";
 import Loading from "../components/Loading.vue";
 import BreadCrumbs from "../components/BreadCrumbs.vue";
+import FilterHeadline from "../components/FilterHeadline.vue";
 import NewsCard from "../components/NewsCard.vue";
 
 export default {
@@ -58,29 +36,9 @@ export default {
     Loading,
     NewsCard,
     BreadCrumbs,
-    vSelect,
-  },
-  data() {
-    return {
-      search: "",
-      filterBy: "",
-    };
+    FilterHeadline,
   },
   computed: mapGetters(["newHeadlines", "sources", "isLoading", "errorMsg"]),
-  watch: {
-    search() {
-      this.filterBy = "";
-      clearTimeout(this.timer);
-      this.timer = setTimeout(async () => {
-        if (this.search.length) {
-          await this.searchHeadlines(this.search);
-        }
-        if (!this.search.length && !this.filterBy) {
-          this.getHeadlines();
-        }
-      }, 500);
-    },
-  },
 
   methods: {
     ...mapActions([
@@ -89,14 +47,9 @@ export default {
       "searchHeadlines",
       "filterBySource",
     ]),
-
-    async get() {
-      await this.getHeadlines();
-      await this.getSources();
-    },
   },
   mounted() {
-    this.get();
+    this.getHeadlines();
   },
 };
 </script>
