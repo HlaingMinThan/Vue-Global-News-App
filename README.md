@@ -1,29 +1,40 @@
-# news-app
 
-## Project setup
-```
-npm install
-```
+#  Vue-Global-News-App
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+This project is using Vue,Vue Router,Vuex,NewsApi.
 
-### Compiles and minifies for production
-```
-npm run build
-```
 
-### Run your unit tests
-```
-npm run test:unit
+## Screenshots
+
+![App Screenshot](https://github.com/HlaingMinThan/Vue-Global-News-App/blob/master/public/images/News-App.png?raw=true)
+
+
+## Run Locally
+
+Clone the project
+
+```bash
+   git clone git@github.com:HlaingMinThan/Vue-Global-News-App.git news-app
 ```
 
-### Lints and fixes files
-```
-npm run lint
+Go to the project directory
+
+```bash
+  cd news-app
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+Install dependencies
+
+```bash
+  npm install
+```
+
+Start the server
+
+```bash
+  npm run serve
+```
+
+and then 
+
+u can check on [(http://localhost:8081)](http://localhost:8081)
