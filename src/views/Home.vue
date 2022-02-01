@@ -12,7 +12,7 @@
           placeholder="Filter By Source"
           :reduce="(source) => source.id"
           v-model="filterBy"
-          @input="filterBySource"
+          @input="filterBySource(filterBy)"
         >
           <template #option="{ name, category }">
             <p style="margin: 0; padding: 0">{{ name }}</p>
@@ -46,6 +46,7 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from "vuex";
 import vSelect from "vue-select";
 import "vue-select/dist/vue-select.css";
 import Loading from "../components/Loading.vue";
@@ -61,89 +62,41 @@ export default {
   },
   data() {
     return {
-      newHeadlines: [],
-      sources: [],
       search: "",
       filterBy: "",
-      isLoading: false,
-      errorMsg: "No results found. :(",
-      apiKey: "099148be22804e849a0c6fe022b7cf5e",
     };
   },
+  computed: mapGetters(["newHeadlines", "sources", "isLoading", "errorMsg"]),
   watch: {
     search() {
       this.filterBy = "";
       clearTimeout(this.timer);
-      this.timer = setTimeout(() => {
+      this.timer = setTimeout(async () => {
         if (this.search.length) {
-          this.searchHeadlines();
+          await this.searchHeadlines(this.search);
         }
         if (!this.search.length && !this.filterBy) {
-          this.getTopUsHeadlines();
+          this.getHeadlines();
         }
       }, 500);
     },
   },
+
   methods: {
-    async getTopUsHeadlines() {
-      try {
-        this.isLoading = true;
-        const res = await this.axios.get(
-          `/top-headlines?country=us&apiKey=${this.apiKey}`
-        );
+    ...mapActions([
+      "getHeadlines",
+      "getSources",
+      "searchHeadlines",
+      "filterBySource",
+    ]),
 
-        this.newHeadlines = res.data.articles;
-        this.isLoading = false;
-      } catch (err) {
-        this.newHeadlines = [];
-        this.errorMsg = err.message;
-        this.isLoading = false;
-      }
-    },
-    async searchHeadlines() {
-      try {
-        this.isLoading = true;
-        const res = await this.axios.get(
-          `/top-headlines?q=${this.search}&apiKey=${this.apiKey}`
-        );
-
-        this.newHeadlines = res.data.articles;
-        this.isLoading = false;
-      } catch (err) {
-        this.newHeadlines = [];
-        this.errorMsg = err.message;
-        this.isLoading = false;
-      }
-    },
-    async getSources() {
-      try {
-        const res = await this.axios.get(`/sources?apiKey=${this.apiKey}`);
-
-        this.sources = res.data.sources;
-      } catch (err) {
-        this.newHeadlines = [];
-        this.errorMsg = err.message;
-        this.isLoading = false;
-      }
-    },
-    async filterBySource() {
-      try {
-        this.isLoading = true;
-        const res = await this.axios.get(
-          `/top-headlines?sources=${this.filterBy}&apiKey=${this.apiKey}`
-        );
-        this.newHeadlines = res.data.articles;
-        this.isLoading = false;
-      } catch (err) {
-        this.newHeadlines = [];
-        this.errorMsg = err.message;
-        this.isLoading = false;
-      }
+    async get() {
+      await this.getHeadlines();
+      await this.getSources();
     },
   },
   mounted() {
-    this.getTopUsHeadlines();
-    this.getSources();
+    this.get();
   },
 };
 </script>

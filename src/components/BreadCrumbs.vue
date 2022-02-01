@@ -19,7 +19,6 @@ import { mapGetters } from "vuex";
 export default {
   computed: {
     currentPath() {
-      console.log("hit");
       return window.location.pathname;
     },
     ...mapGetters({
@@ -28,6 +27,3 @@ export default {
   },
 };
 </script>
-
-<style>
-</style>

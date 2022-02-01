@@ -7,7 +7,7 @@
         color="grey"
         icon
         small
-        @click="goDetail(Math.random(), newHeadline.title)"
+        @click="goDetail(newHeadline.id, newHeadline.title)"
       >
         <v-icon>mdi-arrow-right</v-icon>
       </v-btn>
