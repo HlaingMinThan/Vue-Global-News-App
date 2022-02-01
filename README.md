@@ -23,12 +23,17 @@ Go to the project directory
   cd news-app
 ```
 
+copy .env.example as .env
+
+```bash
+  cp .env.example .env
+```
+
 Install dependencies
 
 ```bash
   npm install
 ```
-
 Start the server
 
 ```bash
